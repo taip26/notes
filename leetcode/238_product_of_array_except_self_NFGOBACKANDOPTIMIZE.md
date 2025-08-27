@@ -6,7 +6,7 @@ use pythons array initialization thingies:
     prefix_sum = [0] * (len[arr]+1)
 drawing out the problem helps a lot
 
-```
+```python
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         if len(nums) <= 1:
