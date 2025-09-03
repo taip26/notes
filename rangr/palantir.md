@@ -27,3 +27,10 @@ Used to create pipelines to transform and move data
 1. Create workshop under ontology manager dependents
 2. Add object table to widget
 3. Add object set to object table
+4. Create a filter set and add filters for every table col, using multi-select when possible
+5. Create a variable using the object set and filter that was just created
+6. Create details page for each object
+ - Object set title
+ - button group
+ - property list
+
