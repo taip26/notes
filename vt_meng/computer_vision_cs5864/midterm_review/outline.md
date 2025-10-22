@@ -1,7 +1,9 @@
 # Topics to Review for Midterm Exam:
 
 1. Any topics mentioned on course topical outline
+
 2. Review homework assignments!
+
 3. Basic history of vision (Hough, Roberts, Rosenfeld, Duda & Hart, Minsky, Rosenblatt, Fukushima) - don't need to know dates
  - Hough - early line detection
  - Roberts - extract geometric 3d shapes from visual data
@@ -10,9 +12,11 @@
  - Minsky - connect a camera to computer and describe what it sees (caused first AI winter (can't model nonlinear))
  - Rosenblatt - Perceptron
  - Fukushima - neocognitron - similar architecture to modern dat cnn's without training using backprop
+
 4. Image formation
  - light hits object, bounces off into imaging system, projects onto image plane. brightness is determined from intensity, surface, and angle of light. 
 - Digital cameras samples light into cells to convert into digital signals. 3 color channels, RGB. quantize world images into digital image plane. Bayer grid records RGB in different grids. more green since human eyes are sensitive to green. 
+
 5. Sampling and aliasing
 Terminology
  - sample -  record function at discrete values
@@ -27,6 +31,7 @@ Anti-aliasing - how?
    - lose info, but better than alias
    - use smoothing filter
  - anti-aliasing improves NN performance
+
 6. Image transformations
 Point processing types (don't need to know formulas)
 Image filtering
@@ -44,12 +49,15 @@ Forward vs inverse warping
  - Forward warp - send (x,y) -> (x,y)'
    - if pixel is warped to not an integer location splat the values to neighboring pixels
  - Inverse warping - usually better, more efficient, no problem with holes (not all warps have inverse functions)
+
 7. Filtering
 Correlation vs convolution (if I give you one formula, can you derive the other? - should be familiar with manipulating these from homework)
  - correlation adding, convolution subtracting idx
  - in deep learning, we use cross-correlation since the kernel isn't flipped since it doesn't matter to NN that the resulting image is flipped
 Smoothing / low-pass filters (Gaussian / box) - don't need to memorize formula of Gaussian
  - sum to 1, removes high frequency, smoothing proportional to size
+ - convolving gaussian with gaussian is gaussian, use a bigger sigma
+ - gaussian filters are good for additive, zero-mean noise
 Properties of linear filters
  - convolution with an impulse response is itself, cross-correlation will be flippsed
  - can add filters independently if filters are added or images are added
@@ -66,8 +74,9 @@ Sharpening with filters
 Separability
  - filters can be separated into x-filters and y-filters
  - pass x and y separately over image, reduces computational complexity by M
- - 
+bilateral filter - give more weight to pixel like the interest pixel
 8. Fourier transform
+ - represent any univariate function as a weighted sum of sines and cosines at different frequencies
 Don't need to memorize formulas per se, but should be familiar with manipulating them from homework (you will be given equation of Fourier transform)
 Complex conjugate
 Foward / backward transform
@@ -78,12 +87,18 @@ You should understand what the Fourier transform of images look like (i.e. if I 
 Transformations with FT
 Convolution theorem - this was on homework!
 Proof of the sampling theorem - you should understand this
-Edge detection
+
+9. Edge detection
 Derivative filters (you should know what these are - e.g. Sobel) and how orientation and magnitude are computed
+ - sobel is just derivative filter with smoothing
+ - orientation is calculated as adding sin(theta)y + cos(theta)x derive
+ - magnitude is calculated as changing the sigma for each derivative
 Canny edge detector terminology
-Corner detection
+
+10. Corner detection
 You should be very familiar with this from your homework 
 You need to know the second moment matrix and how we can use it to detect corners
+
 SIFT
 You should know the idea behind how SIFT is computed (e.g. slide 24 of 8_slides.pdf)
 Matching
