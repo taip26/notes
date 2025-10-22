@@ -80,72 +80,107 @@ bilateral filter - give more weight to pixel like the interest pixel
 Don't need to memorize formulas per se, but should be familiar with manipulating them from homework (you will be given equation of Fourier transform)
 Complex conjugate
 Foward / backward transform
+ - Transform is F, backward is F^-1
 Properties of Fourier transform (linearity, duality)
+ - Plancherel theorem (energy is perserved)
+ - Linearity = F{af1 + bf2} = aF{f1} + aF{f2}
 Fourier transform pairs (need to know these, including comb)
+ - Box - sinc
+ - gauss(var = sigma) - gauss(var = 1/sigma)
+ - f(t) = 1 (constant signal) - impulse
 Complexity of FFT
+ - discrete fourier transform FFT is NlogN complexity of an NxN image
 You should understand what the Fourier transform of images look like (i.e. if I give you an image, can you tell me what the Fourier would be?)
 Transformations with FT
+ - scaled images are scaled inversely in FT
+ - rotated images have the same rotation in FT
+ - translated images have same magnitute, different phase
 Convolution theorem - this was on homework!
+ - fourier transform of a convolution is the product of their fouriers
+ - inverse ft of prod of two fourier is the conv of their inv ft
 Proof of the sampling theorem - you should understand this
+ - sample function at discrete intervals by multiplying with the comb function
+ - take the ft
+ - becomes F(u) * 1/T comb(t;1/T)
+  - basically replicated copies of F(u)
+ - succeeds when sampling freq 1/T exceeds twices greated freq in F(u), or else the freq will overlap
+ 
 
 9. Edge detection
 Derivative filters (you should know what these are - e.g. Sobel) and how orientation and magnitude are computed
  - sobel is just derivative filter with smoothing
- - orientation is calculated as adding sin(theta)y + cos(theta)x derive
+ - orientation is calculated as adding sin(theta)dy + cos(theta)dx derive
  - magnitude is calculated as changing the sigma for each derivative
 Canny edge detector terminology
+ - compute x and y derivative images
+ - find magnitude and oriention of gradient
+ - threshold gradient magnitude
+ - non-max sup - for each loc above threshold, check if its higher than its neighbors in both directions of the gradient. use interpolation if subpixel
+ - hysterisis - use high threshold to start edge curves, use low threshold for curves touch the high curves
 
 10. Corner detection
 You should be very familiar with this from your homework 
 You need to know the second moment matrix and how we can use it to detect corners
+ - Harris
+  - compute partial derivatives
+  - 2nd moment matrix is Ix2, Ixy, Ixy, Iy2
+  - use eigenvalues of M to get cornerness
+  - use R to get orientation
+  - corner response det(M) - alphatrace(M)^2
+  - threshold r
+  - non-max sup
+  * not scale-invariant
 
-SIFT
+11. SIFT
 You should know the idea behind how SIFT is computed (e.g. slide 24 of 8_slides.pdf)
-Matching
+
+12. Matching
 How we can do matching and suppress mismatches
-Optical flow
+
+13. Optical flow
 What is it?
 What are the assumptions we had for estimating optical flow?
 Brightness constancy constraint
 Lucas-Kanade and the second moment matrix
 When doesn't optical flow estimation work under this formulation?
-Fitting
+
+14. Fitting
 Hough transform and RANSAC (be careful to review and understand all the RANSAC slides)
 Connection of outlier ratio, sample size, and iterations
 Need to know how these work (don't need to memorize formulas for Hough transform)
-Alignment
+15. Alignment
 You don't need to memorize the formula for cross-product
 Understand homographies and homogeneous coordinates
-Cameras
+16. Cameras
 Pinhole projection model - you should know the terminology (e.g. camera center, optical center, aperture, image plane, etc.)
 Understand coordinate system - this is the foundation for understanding everything we talked about in epipolar geometry
 Projection equations (you should easily be able to derive these)
 Thin lens formula - you should know this
 Depth of field, field of view
-Perspective projection
+17. Perspective projection
 Finding a vanishing point
 Measuring height without a ruler (this was on your homework!)
 You should know how to find a line passing through two points, intersection of two lines (point) etc. (I will give you cross-ratio formula)
 Orthographic projection
-Camera calibration
+18. Camera calibration
 You need to understand how I can go from a world coordinate to a image coordinate (x =~ PX)
 Understand principal point (slide 43-45) of 12_slides.
 What are extrinsics and intrinsics?
-Epipolar geometry
+19. Epipolar geometry
 You need to really understand the epipolar constraint and epipolar geometry formulas (e.g. epilines, epipoles, etc.). This was directly on your homework. You need a good conceptual understanding of this.
 You definitely need to review slides 27-39 of 13_slides and have an understanding enough that if I gave you the picture you would be able to derive the epipolar constraint and essential matrix. using triple product.
 Fundamental matrix - you should understand the relationship of it to essential matrix. You can derive these yourself, but you should be very familiar with these equations.
-Two-view stereo
+20. Two-view stereo
 Review slides 11-15 closely -- you shoud be able to describe how we can calculate depth from disparity (disparity is just how much the patch moved), and the other thing it depends on is the baseline and focal length...
 Lambertian surface
-Multi-view stereo
+21. Multi-view stereo
 Have a general idea of the plane sweep stereo algorithm
-Structure from motion
+22. Structure from motion
 You know know how we can solve for structure from motion using the incremental algorithm
-Plenoptic function
+23. Plenoptic function
 What is it? 
 Two plane light field (concept)
-NeRFs
+24. NeRFs
 Understand the concept of what a neural radiance field models (inputs / outputs)
 Some part of the exam may require you to compute a matrix inverse. I will give you instructions on how to use the Gauss-Jordan method on the exam, but if you want to save yourself the time, you can refresh your memory on this ahead of time.
 
