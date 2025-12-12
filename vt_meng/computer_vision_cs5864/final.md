@@ -134,3 +134,17 @@ NN training
 Gans
  - KL divergence = D(P||Q) = sum_samples [P(x)log(P(x)/Q(x))]
  - JSD divergence = D(P||Q) = 1/2 D(P||M) + 1/2 D(Q||M)
+ - NSGAN, maximize -log(D(G(x)))
+ - optimal transport - transport plan times cost (primal form)
+ - 1-Lipschitz function - how steep is the slope
+  - derivative must be less than L (1)
+ - can bound how different the output will be basedo en the inpuit
+ - compare along a plan 
+ - can lower bound the primal E_x(f9x) eyiueyfhuoiafh <= w(pl_r, P_theta)
+ inception score - generate many different classes distinctly to get good score
+Diffusion
+ - forward process - turns noise to image
+ -  backwards - turns image to noise
+ - reparameterization trick - change sampling from random distributiong to X = mu + sigma epsilon (allows backprop)
+ - forward process - get model to predict noise at timestep t
+
