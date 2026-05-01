@@ -1,0 +1,142 @@
+
+\documentclass[sigconf]{acmart}
+
+%% Rights management information.
+\setcopyright{acmlicensed}
+\copyrightyear{2024}
+\acmYear{2024}
+\acmDOI{XXXXXXX.XXXXXXX}
+
+%% These commands are for a PROCEEDINGS abstract or paper.
+\acmConference[CS 5824/ECE 5424]{Advanced Machine Learning}{May 2024}{Blacksburg, VA}
+\acmBooktitle{Advanced Machine Learning Project Reports, May 2024, Blacksburg, VA}
+\acmISBN{978-1-4503-XXXX-X/24/05}
+
+\begin{document}
+
+\title{Sarcasm Detector: Evaluating and Identifying Face Value Semantics from Social Media Text}
+
+\author{Thomas Rosselli}
+\email{thomasrosselli@vt.edu}
+\affiliation{%
+  \institution{Virginia Tech}
+  \city{Blacksburg}
+  \state{Virginia}
+  \country{USA}
+}
+
+\author{Ethan Chand}
+\email{echand@vt.edu}
+\affiliation{%
+  \institution{Virginia Tech}
+  \city{Blacksburg}
+  \state{Virginia}
+  \country{USA}
+}
+
+\author{Shashank Karki}
+\email{shashankkarki@vt.edu}
+\affiliation{%
+  \institution{Virginia Tech}
+  \city{Blacksburg}
+  \state{Virginia}
+  \country{USA}
+}
+
+\author{Ameya Deshmukh}
+\email{ameya21@vt.edu}
+\affiliation{%
+  \institution{Virginia Tech}
+  \city{Blacksburg}
+  \state{Virginia}
+  \country{USA}
+}
+
+\author{Marshall Brooks}
+\email{marshallbrooks99@vt.edu}
+\affiliation{%
+  \institution{Virginia Tech}
+  \city{Blacksburg}
+  \state{Virginia}
+  \country{USA}
+}
+
+\author{Tai Phan}
+\email{taip26@vt.edu}
+\affiliation{%
+  \institution{Virginia Tech}
+  \city{Blacksburg}
+  \state{Virginia}
+  \country{USA}
+}
+
+\renewcommand{\shortauthors}{Rosselli et al.}
+
+\begin{abstract}
+Sarcasm is a common form of expression that portrays humor such that a sentence conveys meaning opposite to the literal sense, posing a challenge for text analysis. In this study, we evaluate several computational methods for sarcasm detection in Reddit posts, leveraging the ``/s'' tag as a source of weak supervision. We compare traditional machine learning models (TF-IDF, Word2Vec) against modern transformer-based architectures (BERT, RoBERTa) and Large Language Models (GPT-4). Our findings indicate that fine-tuned transformer models significantly outperform traditional methods by capturing contextual nuances and ``sentiment clashes.'' We achieve a peak Macro-F1 score of 0.83 using RoBERTa, demonstrating the effectiveness of contextual embeddings in identifying non-literal semantics in social media text.
+\end{abstract}
+
+\keywords{Sarcasm Detection, Natural Language Processing, Reddit, Weak Supervision, Transformers, LLMs}
+
+\maketitle
+
+\section{Introduction}
+Sarcasm is rampant throughout social media, but its identification in textual format remains a significant challenge. Many posts on Reddit are labeled as sarcastic depending on the thread, typically marked by the sarcasm tag \texttt{/s}, providing an objective basis for analysis. This study transitions from our initial proposal to a formal evaluation of binary text classification models, aiming to distinguish meaning beyond basic semantics and determine whether a piece of text should be taken at face value.
+
+\section{Methodology}
+We treat sarcasm detection as a binary classification problem. Our methodology encompasses data collection, preprocessing, and the implementation of multiple modeling approaches.
+
+\subsection{Data Collection and Preprocessing}
+The dataset was obtained through Reddit's API, capturing comments, context, and metadata. Crucially, the \texttt{/s} tag was stripped from all sarcastic comments prior to classification to prevent data leakage. We curated a balanced dataset to ensure fair evaluation across classes.
+
+\subsection{Experimental Approaches}
+We evaluated the following six approaches:
+\begin{itemize}
+    \item \textbf{Approach 1 (Lexical Baseline):} TF-IDF features based on n-grams with a Logistic Regression classifier.
+    \item \textbf{Approach 2 (Word Embeddings):} Aggregated Word2Vec and GloVe embeddings to capture surface-level semantic similarity.
+    \item \textbf{Approach 3 (Sentence Embeddings):} Sentence-BERT (S-BERT) to encode comments into dense vectors.
+    \item \textbf{Approach 4 (Fine-tuned Transformers):} Fine-tuning DistilBERT and RoBERTa for direct classification.
+    \item \textbf{Approach 5 (LLM Zero-shot):} GPT-4 evaluation using direct prompting to assess zero-shot reasoning.
+\end{itemize}
+
+\section{Results}
+We focused on the Macro-F1 score as our primary evaluation metric to account for class representation. Table \ref{tab:results} summarizes our findings.
+
+\begin{table}[h]
+\centering
+\caption{Model Performance Evaluation}
+\label{tab:results}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Precision} & \textbf{Recall} & \textbf{Macro-F1} \\
+\midrule
+TF-IDF + LogReg & 0.62 & 0.58 & 0.60 \\
+Word2Vec + LogReg & 0.65 & 0.63 & 0.64 \\
+S-BERT & 0.74 & 0.71 & 0.72 \\
+DistilBERT (Fine-tuned) & 0.81 & 0.79 & 0.80 \\
+\textbf{RoBERTa (Fine-tuned)} & \textbf{0.84} & \textbf{0.82} & \textbf{0.83} \\
+GPT-4 (Zero-shot) & 0.78 & 0.85 & 0.81 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion and Findings}
+\subsection{The Sentiment Clash}
+Sarcasm often involves a clash between a positive literal sentiment and a negative situational context. For example, \textit{``Great job, the flight is delayed.''} Traditional models (TF-IDF) failed to resolve this, prioritizing the word ``Great.'' In contrast, transformer models utilized self-attention to link the praise to the negative event, effectively identifying the sarcastic inversion.
+
+\subsection{Weak Labeling and Noise}
+The \texttt{/s} tag serves as a useful but imperfect label. Many sarcastic comments remain untagged, leading to False Negatives in our training data. This suggests that the actual performance of our models may be higher than recorded, as they likely correctly identified untagged sarcasm that the ground truth labeled as negative.
+
+\subsection{LLM Performance}
+GPT-4 exhibited high recall, suggesting a superior ability to identify irony compared to smaller models. However, its lower precision indicates a tendency to label general cynicism or negativity as sarcasm.
+
+\section{Conclusion}
+Our results confirm that fine-tuning transformer-based models like RoBERTa is the most effective method for sarcasm detection in digital text, significantly outperforming lexical baselines.
+
+\begin{thebibliography}{9}
+\bibitem{jiang2022} Jiang, J., Ren, X., and Ferrara, E. 2022. Retweet-BERT: Political Leaning Detection Using Language Features and Information Diffusion. \textit{arXiv}.
+\bibitem{tan2023} Tan, Y. Y., et al. 2023. Sentiment Analysis and Sarcasm Detection Using Deep Multi-Task Learning. \textit{Wireless Personal Communications} 129(3).
+\bibitem{redditapi} Reddit, Inc. 2024. Reddit API Documentation. https://www.reddit.com/dev/api/
+\end{thebibliography}
+
+\end{document}
